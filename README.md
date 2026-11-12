@@ -1,56 +1,53 @@
 # Cancer Classification and Prediction Using Neural Networks
 
-**Author:** SANKET KISHOR SUTAR
+**Developed by: SANKET KISHOR SUTAR**
 
-An educational machine-learning project that uses an Artificial Neural Network (ANN) to classify samples in the Breast Cancer Wisconsin (Diagnostic) dataset as **Malignant (0)** or **Benign (1)**. The project was developed in Python using Google Colab and includes exploratory data analysis, preprocessing, model training, evaluation, and an interactive Gradio demonstration.
+An educational machine-learning project that uses an Artificial Neural Network (ANN) to classify samples from the Breast Cancer Wisconsin (Diagnostic) dataset as **Malignant (0)** or **Benign (1)**.
 
-> **Important:** This is an educational demonstration, not a clinically validated diagnostic system. It must not be used for medical diagnosis, treatment, or other clinical decisions.
+> **Disclaimer:** This project is an educational demonstration, not a clinically validated diagnostic system. Its predictions must not be used for medical diagnosis or treatment decisions.
 
 ## Project overview
 
-- **Dataset:** Breast Cancer Wisconsin (Diagnostic), provided through Scikit-learn
-- **Dataset size:** 569 samples, 30 numerical input features, 2 classes
-- **Class mapping:** 0 = Malignant; 1 = Benign
-- **Model:** Feed-forward Artificial Neural Network
-- **Architecture:** 30 inputs → Dense(20, ReLU) → Dense(2, Softmax)
+- **Dataset:** Breast Cancer Wisconsin (Diagnostic), available through Scikit-learn
+- **Samples:** 569
+- **Input features:** 30 numerical measurements
+- **Classes:** Malignant and Benign
+- **Model:** Artificial Neural Network
+- **Architecture:** 30 input features → Dense(20, ReLU) → Dense(2, Softmax)
 - **Optimizer:** Adam
 - **Learning rate:** 0.001
-- **Loss:** Sparse categorical cross-entropy
+- **Loss function:** Sparse categorical cross-entropy
 - **Training:** 10 epochs, batch size 32
-- **Environment:** Python, Google Colab
-- **Interface:** Gradio
+- **Development environment:** Google Colab
+- **Interactive interface:** Gradio
 
 ## Dataset
 
-The 30 features are grouped as:
+The 30 numerical features are grouped into:
 1. Mean measurements
 2. Standard-error measurements
 3. Worst measurements
 
-The target classes in the dataset are malignant and benign. The dataset contains 212 malignant and 357 benign samples.
+The dataset contains 212 malignant and 357 benign samples. The class mapping used by the model is 0 = Malignant and 1 = Benign.
 
-## Methodology
+## Project workflow
 
 1. Load the Breast Cancer Wisconsin (Diagnostic) dataset.
-2. Explore dataset dimensions, columns, missing values, duplicates, descriptive statistics, class distribution, feature distributions, and correlations.
-3. Separate input features and target labels.
-4. Create a stratified 80:20 train/test split (455 development samples and 114 held-out test samples).
-5. Split the 455 development samples into 409 training and 46 validation samples.
-6. Fit the final StandardScaler on the 409 training samples only; transform validation and test data with the fitted scaler.
-7. Build and train the ANN for 10 epochs.
-8. Evaluate on the held-out test set using accuracy, precision, recall, F1-score, and a confusion matrix.
-9. Provide an interactive Gradio form for 30 numerical measurements.
-10. Save the Keras model, scaler, feature order, class mapping, metadata, and result files.
+2. Explore the dataset, missing values, duplicate records, descriptive statistics, distributions and feature correlations.
+3. Split the data into development and held-out test portions using stratification.
+4. Create a training and validation split from the development portion.
+5. Fit StandardScaler on training data only and transform validation/test data with that fitted scaler.
+6. Build and train the ANN.
+7. Evaluate the held-out test data using accuracy, precision, recall, F1-score and a confusion matrix.
+8. Use the saved model and scaler in the Gradio prediction application.
 
-## Reported results
-
-The supplied Google Colab run recorded:
+## Recorded results from the supplied Google Colab run
 
 | Metric | Result |
 |---|---:|
 | Training accuracy | 95.60% |
 | Validation accuracy | 95.65% |
-| Held-out testing accuracy | 93.86% |
+| Testing accuracy | 93.86% |
 | Testing loss | 0.1408 |
 | Malignant precision | 92.68% |
 | Malignant recall / sensitivity | 90.48% |
@@ -67,83 +64,80 @@ Confusion matrix (actual rows; predicted columns):
 | Actual Malignant | 38 | 4 |
 | Actual Benign | 3 | 69 |
 
-These results describe one stratified held-out split and are not evidence of clinical performance.
+These figures describe the specific supplied Colab run. A new training run may produce slightly different values.
 
-## Interactive demonstration
+## Interactive prediction application
 
-The Gradio interface accepts 30 numeric values, arranged into Mean, Standard Error, and Worst measurement groups. It applies the saved training scaler and displays the predicted class and the model's class probabilities.
+The Gradio interface accepts 30 numerical measurements in three groups: Mean, Standard Error and Worst. It applies the saved training scaler, passes the values to the ANN, and displays the predicted class and both class probabilities.
 
-Example shown in the supplied demonstration screenshot:
-- Predicted class: Benign (class 1)
-- Benign probability: 86.14%
-- Malignant probability: 13.86%
+The supplied application screenshot shows an example output of Benign (class 1), with 86.14% Benign and 13.86% Malignant model probability. These probabilities are not clinically calibrated diagnostic certainty.
 
-Model probabilities are not clinically calibrated diagnostic certainty.
-
-## Repository structure
+## Repository files
 
 ```text
-.
+cancer-classification-using-neural-networks/
+│
 ├── README.md
 ├── .gitignore
-├── notebooks/          # Completed Google Colab notebook (.ipynb)
-├── src/                # Python source files and Gradio application
-├── models/             # Trained model and fitted scaler
-├── metadata/           # Feature names, class mapping, model metadata
-├── results/            # Training history and evaluation outputs
-├── screenshots/        # Actual project output screenshots
-├── documentation/      # Final report (DOCX and PDF)
-└── presentation/       # PowerPoint presentation
+├── Cancer_Classification_Project.ipynb
+├── cancer_classification.py
+├── predict.py
+├── app.py
+├── cancer_model.keras
+├── training_scaler.joblib
+│
+├── documentation/
+│   ├── Cancer_Classification_Project_Report.docx
+│   └── Cancer_Classification_Project_Report.pdf
+│
+├── presentation/
+│   └── Cancer_Classification_Project_Presentation.pptx
+│
+└── screenshots/
+    ├── Dataset and EDA screenshots
+    ├── Training and accuracy screenshots
+    ├── Evaluation screenshots
+    └── Final prediction screenshots
 ```
 
-Folders will be populated with the corresponding project files as they are uploaded.
+The notebook, trained model, scaler, report, presentation and screenshots are added as the corresponding project files are uploaded.
 
-## Requirements and execution
+## Running the project
 
-Install the project dependencies from the repository root:
+Install the required libraries:
 
 ```bash
-python -m pip install -r requirements.txt
+python -m pip install numpy pandas matplotlib seaborn scikit-learn tensorflow gradio joblib
 ```
 
-### Train the model
+Train the model and save the model/scaler files:
 
 ```bash
-python src/train_model.py
+python cancer_classification.py
 ```
 
-This loads the Scikit-learn dataset, creates the stratified train/validation/test partitions, fits the StandardScaler on training data only, trains the ANN, evaluates the held-out test set, and writes model, metadata and results artefacts into the corresponding folders.
-
-### Launch the Gradio application
-
-After the model and scaler have been generated or restored:
+Launch the interactive application after the model files have been created:
 
 ```bash
-python src/app.py
+python app.py
 ```
 
-The app accepts 30 numerical measurements and displays the predicted class and both class probabilities. Do not treat the output as a medical diagnosis.
-
-The supplied author-run results are documented above. A new training run may produce slightly different values because neural-network initialization and execution can be stochastic. Do not overwrite the recorded author-run results in project documents with a different run unless those documents are updated consistently.
-
-The completed Google Colab notebook is the primary walkthrough of the original project workflow. The standalone scripts provide a runnable training and inference path.
+The completed Google Colab notebook is the primary record of the project workflow. The standalone Python files provide training, prediction and interface code.
 
 ## Limitations
 
-- The dataset is a fixed public benchmark with 569 samples.
-- Evaluation uses one stratified train/test split.
+- The dataset is a fixed public benchmark containing 569 samples.
+- Evaluation is based on a held-out split from this dataset.
 - No independent external cohort or prospective clinical validation was conducted.
-- The interface accepts numerical measurements, not mammograms or clinical records.
-- A high score on this dataset does not establish suitability for clinical use.
+- The application accepts numerical measurements and is not an image-based medical system.
+- Strong benchmark performance does not establish clinical suitability.
 
-## Acknowledgements and references
+## References
 
 - Breast Cancer Wisconsin (Diagnostic) dataset, UCI Machine Learning Repository.
-- Scikit-learn dataset utilities and documentation.
-- TensorFlow/Keras documentation.
+- Scikit-learn documentation.
+- TensorFlow and Keras documentation.
 - Gradio documentation.
-
-See the project report in `documentation/` for the detailed background, methodology, implementation, results, references, and evidence notes.
 
 ---
 
