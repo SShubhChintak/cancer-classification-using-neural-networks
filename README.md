@@ -100,9 +100,33 @@ Folders will be populated with the corresponding project files as they are uploa
 
 ## Requirements and execution
 
-The exact dependency versions should be recorded in `requirements.txt` from the final working environment. The primary development workflow is the completed notebook in Google Colab.
+Install the project dependencies from the repository root:
 
-Once the source files and saved model artefacts are uploaded, use the instructions in the respective source-code files to run training or launch the Gradio interface.
+```bash
+python -m pip install -r requirements.txt
+```
+
+### Train the model
+
+```bash
+python src/train_model.py
+```
+
+This loads the Scikit-learn dataset, creates the stratified train/validation/test partitions, fits the StandardScaler on training data only, trains the ANN, evaluates the held-out test set, and writes model, metadata and results artefacts into the corresponding folders.
+
+### Launch the Gradio application
+
+After the model and scaler have been generated or restored:
+
+```bash
+python src/app.py
+```
+
+The app accepts 30 numerical measurements and displays the predicted class and both class probabilities. Do not treat the output as a medical diagnosis.
+
+The supplied author-run results are documented above. A new training run may produce slightly different values because neural-network initialization and execution can be stochastic. Do not overwrite the recorded author-run results in project documents with a different run unless those documents are updated consistently.
+
+The completed Google Colab notebook is the primary walkthrough of the original project workflow. The standalone scripts provide a runnable training and inference path.
 
 ## Limitations
 
