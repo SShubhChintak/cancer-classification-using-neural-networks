@@ -79,7 +79,7 @@ cancer-classification-using-neural-networks/
 │
 ├── README.md
 ├── .gitignore
-├── Cancer_Classification_Project.ipynb
+├── Cancer_Classification_Project_clean.ipynb
 ├── cancer_classification.py
 ├── predict.py
 ├── app.py
